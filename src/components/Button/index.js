@@ -1,10 +1,12 @@
-import React from 'react'
-import './style.css'
+import React from "react";
+import "./style.css";
 
-function Button({text, onClick, blue}) {
+function Button({ text, onClick, blue, disabled }) {
   return (
-    <div className={blue? "btn btn-blue" : "btn"} onClick={onClick}>{text}</div>
-  )
+    <div className={blue ? "btn btn-blue" : "btn"} onClick={onClick}>
+      {text} {disabled}
+    </div>
+  );
 }
 
-export default Button
+export default Button;
