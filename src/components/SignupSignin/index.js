@@ -48,6 +48,8 @@ function SignupSigninComponent() {
           placeholder={"Confirm Your Password"}
         />
         <Button text={"SignUp using Email & Password"}/>
+        <p style={{textAlign:"center", margin:0}}>  or </p>
+        <Button text={"SignUp using Google"} blue={true}/>
       </form>
     </div>
   );
