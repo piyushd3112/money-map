@@ -19,21 +19,21 @@ function Header() {
   }, [user, loading]);
 
   function logoutFnc() {
-    try{
-      signOut(auth).then(() => {
-        // Sign-out successful.
-        toast.success("Logged Out Successfully!");
-        navigate("/");
-      }).catch((error) => {
-        toast.error("error.message");
-        // An error happened.
-      });
-    }catch(e){
+    try {
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          toast.success("Logged Out Successfully!");
+          navigate("/");
+        })
+        .catch((error) => {
+          toast.error("error.message");
+          // An error happened.
+        });
+    } catch (e) {
       toast.error(e.message);
     }
     // alert("Logout Successfully !");
-    
-    
   }
   return (
     <div className="navbar">
