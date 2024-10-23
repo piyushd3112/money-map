@@ -1,6 +1,6 @@
 .signup-wrapper{
     width: 70%;
-    max-width: 450px;
+    max-width: 40px;
     height: auto;
     box-shadow: var(--shadow);
     border-radius: 1rem;
@@ -11,7 +11,7 @@
     font-weight: 500;
     font-size: 1.3rem;
     text-align: center;
-    /* margin: 0;
-    margin-bottom: 1rem; */
+    text-align: center;
+    
 
 }
