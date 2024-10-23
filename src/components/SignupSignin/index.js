@@ -7,6 +7,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 
 import { auth } from "../../firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
@@ -119,6 +121,40 @@ function SignupSigninComponent() {
     }
   }
 
+  function googleAuth() {
+    const provider = new GoogleAuthProvider();
+    setLoading(true);
+    try {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          console.log("user>>>", user);
+          createDoc(user)
+          setLoading(false);
+          navigate("/dashboard")
+          toast.success("User Authenticated!")
+
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        })
+        .catch((error) => {
+          setLoading(false);
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          toast.error(errorMessage)
+          
+        });
+    } catch (e) {
+      setLoading(false);
+      toast.error(e.message);
+    }
+  }
+
   return (
     <>
       {loginForm ? (
@@ -151,6 +187,7 @@ function SignupSigninComponent() {
             />
             <p style={{ textAlign: "center", margin: 0 }}> or </p>
             <Button
+              onClick={googleAuth}
               text={loading ? "Loading...." : "Log In using Google"}
               blue={true}
             />
@@ -206,6 +243,7 @@ function SignupSigninComponent() {
             />
             <p style={{ textAlign: "center", margin: 0 }}> or </p>
             <Button
+              onClick={googleAuth}
               text={loading ? "Loading...." : "SignUp using Google"}
               blue={true}
             />
