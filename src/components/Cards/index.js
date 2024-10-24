@@ -20,7 +20,7 @@ function Cards({
 
         <Card bordered={true} className={"my-card"}>
           <h2>Total Income</h2>
-          <p>₹{expense}</p>
+          <p>₹{income}</p>
           <Button text="Add Income" blue={true} onClick={showIncomeModal} />
         </Card>
 
