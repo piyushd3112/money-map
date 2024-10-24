@@ -1,10 +1,9 @@
 import { Select, Table, Radio } from "antd";
 // import { Option } from "antd/es/mentions";
 import React, { useState } from "react";
-
-
+import searchImg from "../../assets/search.svg"
 function TransactionsTable({ transactions }) {
-    const {Option} = Select;
+  const { Option } = Select;
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [sortKey, setSortKey] = useState("");
@@ -42,7 +41,7 @@ function TransactionsTable({ transactions }) {
       item.type.includes(typeFilter)
   );
 
-let sortedTransaction = filteredTransactions.sort((a, b) => {
+  let sortedTransaction = filteredTransactions.sort((a, b) => {
     if (sortKey === "date") {
       return new Date(a.date) - new Date(b.date);
     } else if (sortKey === "amount") {
@@ -53,25 +52,56 @@ let sortedTransaction = filteredTransactions.sort((a, b) => {
   });
 
   return (
-    <>
-     <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search by name"
-      />
-      <Select
-        className="select-input"
-        onChange={(value) => setTypeFilter(value)}
-        value={typeFilter}
-        placeholder="Filter"
-        allowClear
+    <div
+      style={{
+        width: "97%",
+        padding: "0rem 2rem",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "1rem",
+          alignItems: "center",
+          marginBottom: "1rem",
+        }}
       >
-        <Option value="">All</Option>
-        <Option value="income">Income</Option>
-        <Option value="expense">Expense</Option>
-      </Select>
+        <div className="input-flex">
+          <img src={searchImg} width="16" />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name"
+          />
+        </div>
 
-      <Radio.Group
+        <Select
+          className="select-input"
+          onChange={(value) => setTypeFilter(value)}
+          value={typeFilter}
+          placeholder="Filter"
+          allowClear
+        >
+          <Option value="">All</Option>
+          <Option value="income">Income</Option>
+          <Option value="expense">Expense</Option>
+        </Select>
+        </div>
+        <div className="my-table">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "1rem",
+          }}
+        >
+          <h2>My Transactions</h2>
+
+          <Radio.Group
             className="input-radio"
             onChange={(e) => setSortKey(e.target.value)}
             value={sortKey}
@@ -80,9 +110,33 @@ let sortedTransaction = filteredTransactions.sort((a, b) => {
             <Radio.Button value="date">Sort by Date</Radio.Button>
             <Radio.Button value="amount">Sort by Amount</Radio.Button>
           </Radio.Group>
-     
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "1rem",
+              width: "400px",
+            }}
+          >
+            <button className="btn" >
+              Export to CSV
+            </button>
+            <label for="file-csv" className="btn btn-blue">
+              Import from CSV
+            </label>
+            <input
+              
+              id="file-csv"
+              type="file"
+              accept=".csv"
+              required
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+        </div>
       <Table dataSource={sortedTransaction} columns={columns} />
-    </>
+    </div>
   );
 }
 
